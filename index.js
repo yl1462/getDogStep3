@@ -16,17 +16,19 @@ function getDogImg(text) {
   .then(imgResult => { 
     displayImg(imgResult)
   })
-  .catch(error => console.log(error)
-  window.alert(imgResult.message))
+  .catch(error => console.log(error))
 }
 
 
 
 function displayImg(imgResult) {
-  console.log(imgResult)
-  let html = '';
-  html=`<img src="${imgResult.message}">`;
+  console.log(imgResult);
+  if (imgResult.status == "error" && imgResult.code == "404") {
+    $("section").html(`<p>Sorry, please check the breed name and try again.</p>`)
+  } else {
+  let html = `<img src="${imgResult.message}">`;
   $("section").html(html);
+  }
 }
 
 $(
