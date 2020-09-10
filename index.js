@@ -4,32 +4,29 @@ function watchForm() {
   $('form').submit(function(event) {
     event.preventDefault();
     console.log("submit");
-    let text = $('.breedName').string();
+    let text = $('.breedName').val();
     console.log(text);
     getDogImg(text);
   })
 }
 
 function getDogImg(text) {
-  fetch(`https://dog.ceo/api/breed/hound/images/${text}`)
+  fetch(`https://dog.ceo/api/breed/${text}/images/random`)
   .then(res => res.json())
   .then(imgResult => { 
     displayImg(imgResult)
   })
-  .catch(error => console.log(error))
+  .catch(error => console.log(error)
+  window.alert(imgResult.message))
 }
 
 
 
 function displayImg(imgResult) {
-  console.log(imgResult.message)
+  console.log(imgResult)
   let html = '';
-  imgResult = imgResult.message;
-  for (let i = 0; i < imgResult.length; i++) {
-    console.log(imgResult[i])
-    html+=`<img src="${imgResult[i]}">`
-  }
-  $("section").html(html)
+  html=`<img src="${imgResult.message}">`;
+  $("section").html(html);
 }
 
 $(
